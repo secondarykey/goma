@@ -38,7 +38,8 @@ final class Allocator {
 
     private boolean canAllocate(List<Character> codes, int x) {
         for (int i = 1; i < codes.size(); i++)
-            if (x + codes.get(i) < lnk.size() && lnk.get(x + codes.get(i)).next == 0)
+            if (x + codes.get(i) < lnk.size() &&
+                lnk.get(x + codes.get(i)).next == 0)
                 return false;
         return true;
     }

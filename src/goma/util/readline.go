@@ -6,6 +6,7 @@ import (
 )
 
 type ReadLine struct {
+	f *os.File
 	rd *bufio.Reader
 }
 
@@ -14,10 +15,10 @@ func NewReadLine(name string) (*ReadLine, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
 
 	rdr := bufio.NewReaderSize(f, 4096)
 	rl := &ReadLine {
+		f : f,
 		rd : rdr,
 	}
 	return rl,nil
@@ -29,5 +30,9 @@ func (self *ReadLine) Read() (string, error) {
 		return "", err
 	}
 	return string(l), nil
+}
+
+func (self *ReadLine) Close() {
+	self.f.Close()
 }
 

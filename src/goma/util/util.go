@@ -30,3 +30,4 @@ func GetFileList(path,ext string) ([]string,error) {
 	}
 	return files,nil
 }
+

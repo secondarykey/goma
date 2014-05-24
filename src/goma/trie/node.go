@@ -19,12 +19,12 @@ type ChckNode struct {
 	CODE_LIMMIT    uint16
 }
 
-var Node NodeNode
+var Node *NodeNode
 
 func init() {
 	Node = &NodeNode{}
 	Node.Base = &BaseNode{}
-	Node.Base.INITVALUE = -2147483648
+	Node.Base.INIT_VALUE = -2147483648
 
 	Node.Chck = &ChckNode{}
 	Node.Chck.TERMINATE_CODE = 0

@@ -72,7 +72,7 @@ public final class Builder {
             for (int i = 0; i < nodeSize; i++)
                 fmos.putChar(chck.get(i, Node.Chck.VACANT_CODE));
 
-            fmos.putString(tail.toString());
+
         } finally {
             fmos.close();
         }

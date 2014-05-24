@@ -1,8 +1,6 @@
 package trie
 
 import (
-	"goma"
-	"strings"
 )
 
 type Searcher struct {
@@ -14,22 +12,8 @@ type Searcher struct {
 	tail string
 }
 
-func NewSearcher(filePath string) (*Searcher,error) {
-	fm,err := goma.NewFileMapped(filePath)
-	if err != nil {
-		return nil,err
-	}
+func NewSearcher(_ string) (*Searcher,error) {
 	this := new(Searcher)
-	nodeSz := fm.GetInt32()
-	tindSz := fm.GetInt32()
-	tailSz := fm.GetInt32()
-
-	this.keySetSize = tindSz
-	this.begs = fm.GetInt32Array(tindSz)
-	this.base = fm.GetInt32Array(nodeSz)
-	this.lens = fm.GetInt16Array(tindSz)
-	this.chck = fm.GetUint16Array(nodeSz)
-	this.tail = fm.GetString(tailSz)
 	return this,nil
 }
 
@@ -37,6 +21,7 @@ func (this *Searcher) Size() int32 {
 	return this.keySetSize
 }
 
+/*
 func (this* Searcher) Search(key []byte) int32 {
 	node := this.base[0]
 	in := NewKeyStream(key)
@@ -52,13 +37,16 @@ func (this* Searcher) Search(key []byte) int32 {
 		}
 	}
 }
+*/
 
+/*
 func (this *Searcher)EachCommonPrefix(key []byte,start int32,fn Callback) {
 	node := this.base[0]
 	offset := 0
 	in := NewKeyStreamStart(key,start)
 
-	for code := in.Read();; code=in.Read(),offset++ {
+	code:=in.Read()
+	for {
 		terminalIdx := node + int32(Node.Chck.TERMINATE_CODE)
 		if this.chck[terminalIdx] == Node.Chck.TERMINATE_CODE {
 			fn.call(start,offset,Node.Base.ID(this.base[terminalIdx]))
@@ -72,13 +60,18 @@ func (this *Searcher)EachCommonPrefix(key []byte,start int32,fn Callback) {
 
 		if this.chck[idx] == code {
 			if node >= 0 {
+				code=in.Read()
+				offset++
 				continue
 			} else {
 				this.call_if_keyIncluding(in,node,start,offset,fn)
 			}
 		}
+		code=in.Read()
+		offset++
 	}
 }
+
 
 func (this *Searcher)call_if_keyIncluding(in *KeyStream, node int32, start int32, offset int, fn Callback) {
 	id := Node.Base.ID(node)
@@ -87,6 +80,6 @@ func (this *Searcher)call_if_keyIncluding(in *KeyStream, node int32, start int32
 		fn.call(start,offset+this.lens[id]+1,id)
 	}
 }
+*/
 
-s := this.tail[this.begs[id]:this.begs[id]+int32(this.lens[id])]
 
