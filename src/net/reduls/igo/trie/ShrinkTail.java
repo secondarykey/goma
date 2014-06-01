@@ -22,6 +22,7 @@ final class ShrinkTail {
     }
 
     public void shrink() {
+
         // TAILに格納されている文字列群を、その末尾から比較してソートする
         final ArrayList<TailString> sorted = new ArrayList<TailString>(begs.size());
         for (int i = 0; i < begs.size(); i++)
